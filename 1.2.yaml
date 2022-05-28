@@ -1,0 +1,49 @@
+name: '1.2'
+source code: |
+  input: '1111*1'
+  # input: '1*111'
+  # input: '111*111'
+  blank: ' '
+  start state: q0
+  table:
+    q0:
+      1      : {write: ' ', R: q1}
+      '*'      : {write: '*', R: skip}
+    q1:
+      1      : {write: '1', R: q1}
+      '*'      : {write: '*', R: q2}
+    q2:
+      1      : {write: ' ', R: q3}
+      ' '    : {write: ' ', L: back}
+    q3:
+      1      : {write: '1', R: q3}
+      ' '    : {write: ' ', R: result}
+    result: 
+      ' '    : {write: '1', L: q4}
+      '1'    : {write: '1', R: result}
+    q4: 
+      ' '    : {write: ' ', L: q4}
+      '1'    : {write: '1', L: q4}
+      '*'    : {write: '*', R: q5}
+    q5:
+      ' '    : {write: '1', R: q2}
+      '1'    : {write: '1', R: q5}
+    back: 
+      '1'    : {write: '1', L: back}
+      '*'    : {write: '*', L: back}
+      ' '    : {write: '1', R: q0}
+    skip: 
+      '1'    : {write: '1', R: skip}
+      ' '    : {write: ' ', R: done}
+    done:
+positions:
+  q0: {x: 152.2, y: 172.66}
+  q1: {x: 305.93, y: 175.05}
+  q2: {x: 479.09, y: 177.2}
+  q3: {x: 592.47, y: 175.9}
+  result: {x: 719.85, y: 177.02}
+  q4: {x: 713.18, y: 293.07}
+  q5: {x: 477.51, y: 293.4}
+  back: {x: 314.29, y: 266.48}
+  skip: {x: 152.31, y: 350.35}
+  done: {x: 344.79, y: 351.79}

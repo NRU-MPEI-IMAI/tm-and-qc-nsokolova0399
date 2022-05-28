@@ -1,0 +1,32 @@
+name: '1.1'
+source code: |
+  input: '1111+1'
+  # input: '1+111'
+  # input: '111+111'
+  blank: ' '
+  start state: q0
+  table:
+    q0:
+      1      : {write: x, R: q1}
+      +      : {write: ' ', R: done}
+      ' '    : {write: ' ', R: done}
+    q1:
+      1      : {write: 1, R}
+      +      : {write: +, R: q2}
+    q2:
+      1      : {write: 1, R: q2}
+      ' '    : {write: 1, L: q3}
+    q3:
+      1      : {write: 1, L}
+      +      : {write: +, L: q4}
+    q4:
+      1      : {write: 1, L}
+      x      : {write: ' ', R: q0}
+    done:
+positions:
+  q0: {x: 193.58, y: 250.05}
+  q1: {x: 333.52, y: 180.18, fixed: false}
+  q2: {x: 480.12, y: 178.07, fixed: false}
+  q3: {x: 480.45, y: 321.5, fixed: false}
+  q4: {x: 333.81, y: 319.6, fixed: false}
+  done: {x: 96.13, y: 250.98}
