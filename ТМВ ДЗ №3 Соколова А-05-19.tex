@@ -4,6 +4,7 @@
 \usepackage[russian]{babel}
 \usepackage{setspace,amsmath}
 \usepackage{graphicx}
+\usepackage{listings}
 \usepackage[left=20mm, top=15mm, right=15mm, bottom=15mm, nohead, footskip=10mm]{geometry} % настройки полей документа
  
 \begin{document} % начало документа
@@ -219,11 +220,154 @@ q0 & <q1,' ',R> \\
 % КОНЕЦ ЗАДАНИЯ 1
 
 % НАЧАЛО ЗАДАНИЯ 2
+\subsection{Операции с языками и символами}
 
+Реализуйте машины Тьюринга, которые позволяют выполнять следующие операции:
+\begin{enumerate}
+    \item Принадлежность к языку $L = \{ 0^n1^n2^n \}, n \ge 0$ (0.5 балла)
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=16cm]{2.1.jpg}
+    \end{figure}
+    \\
+\ Примеры данных, при которых МТ корректно завершает работу:\\
+\ input: '001122' \\
+\ Как выглядит на ленте завершение программы:\\
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=7cm]{2.1screen1.jpg}
+\end{figure}
+\\
+\ input: '012' \\
+\ input: '001122' \\
+\ input: '000111222' \\
+\ input: '000011112222' \\
+\ Примеры данных, при которых МТ некорректно завершает свою работу:\\
+\ input: '00011222'\\
+\ Как выглядит на ленте завершение программы:\\
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=7cm]{2.1screen.jpg}
+\end{figure}
+\\
+\ input: '000122'\\
+\ input: '221100'\\
+\ input: '1122'\\
+\ input: '00122'\\
+\ input: '00112'\\
+\ input: '3'\\
+\ input: '000111'\\
+\ input: '01122'\\
+\\ \newpage
+    \item Проверка соблюдения правильности скобок в строке (минимум 3 вида скобок) (0.5 балла)
+\\
+\begin{figure}[h]
+        \centering
+        \includegraphics[width=17cm]{2.2.jpg}
+\end{figure}\\ 
+\ Примеры данных, при которых МТ корректно завершает работу:\\
+\ input: '$($ $[$ $($ $[$ $]$ $)$ $]$ $)$' \\
+\ input: '$($ $)$ $[$ $]$' \\
+\ input: '$($ $)$ $[$ $]$ \{ \}' \\
+\ input: '$($ $($ )$ $[$ $]$ \{\}$)' \\
+\ Примеры данных, при которых МТ некорректно завершает свою работу:\\
+\ input: '$($ $[$ $($ $]$ $)$'\\
+\ input: '$($ $($ \{ $[$ $]$ \} $($ $[$ $]$ $)$'\\
+\ input: '$($ $($ $($ $)$ $)$'\\
+\ input: '$($'\\
+\\
+\newpage
+    \item Поиск минимального по длине слова в строке (слова состоят из символов 1 и 0 и разделены пробелом) (1 балл)
+   \begin{figure}[h]
+        \centering
+        \includegraphics[width=17cm]{2.3.jpg}
+   \end{figure}\\ 
+\ Тесты:\\
+\ input: '10101 101 100' \\
+\ Результат:\\
+   \begin{figure}[h]
+        \centering
+        \includegraphics[width=3cm]{2.3screen.jpg}
+   \end{figure}\\ 
+\ input: '11 01 10'\\
+\ Результат:
+   \begin{figure}[h]
+        \centering
+        \includegraphics[width=3cm]{2.3screen1.jpg}
+   \end{figure}\\ 
+\\ \\
+\ input: '1 101 110'\\
+\ Результат:\\
+   \begin{figure}[h]
+        \centering
+        \includegraphics[width=2cm]{2.3screen2.jpg}
+   \end{figure}\\ 
+\ input: '1'\\
+\ Результат:\\
+   \begin{figure}[h]
+        \centering
+        \includegraphics[width=2cm]{2.3screen2.jpg}
+   \end{figure}\\ 
+\end{enumerate}\\
 % КОНЕЦ ЗАДАНИЯ 2
 
 
 % НАЧАЛО ЗАДАНИЯ 3
+\section{Квантовые вычисления}
+
+\subsection{Генерация суперпозиций 1 (1 балл)}
+
+Дано $N$ кубитов ($1 \le N \le 8$) в нулевом состоянии $\Ket{0\dots0}$. Также дана некоторая последовательность битов, которое задаёт ненулевое базисное состояние размера $N$. Задача получить суперпозицию нулевого состояния и заданного.
+
+$$\Ket{S} = \frac{1}{\sqrt2}(\Ket{0\dots0} +\Ket{\psi})$$
+
+То есть требуется реализовать операцию, которая принимает на вход:
+
+\begin{enumerate}
+    \item Массив кубитов $q_s$
+    \item Массив битов $bits$ описывающих некоторое состояние $\Ket{\psi}$. Это массив имеет тот же самый размер, что и $qs$. Первый элемент этого массива равен $1$.
+\end{enumerate}
+
+
+Заготовка для кода:
+\begin{lstlisting}
+namespace Solution {
+        open Microsoft.Quantum.Primitive;
+        open Microsoft.Quantum.Canon;
+        operation Solve (qs : Qubit[], bits : Bool[]) : ()
+        {
+            body
+            {
+
+            }
+        }
+}
+\end{lstlisting}
+
+\subsection{Различение состояний 1 (1 балл)}
+
+Дано $N$ кубитов ($1 \le N \le 8$), которые могут быть в одном из двух состояний:
+
+$$\Ket{GHZ} = \frac{1}{\sqrt2}(\Ket{0\dots0} +\Ket{1\dots1})$$
+$$\Ket{W} = \frac{1}{\sqrt N}(\Ket{10\dots00}+\Ket{01\dots00} + \dots +\Ket{00\dots01})$$
+
+Требуется выполнить необходимые преобразования, чтобы точно различить эти два состояния. Возвращать $0$, если первое состояние и 1, если второе. 
+\\\\
+Заготовка для кода:
+\begin{lstlisting}
+namespace Solution {
+        open Microsoft.Quantum.Primitive;
+        open Microsoft.Quantum.Canon;
+        operation Solve (qs : Qubit[]) : Int
+        {
+            body
+            {
+
+                return 
+            }
+        }
+}
+\end{lstlisting}
 
 % КОНЕЦ ЗАДАНИЯ 3
 

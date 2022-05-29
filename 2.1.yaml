@@ -1,0 +1,85 @@
+name: '2.1'
+source code: |
+  input: '001122'
+  blank: ' '
+  start state: q0
+  table:
+      q0:
+        '0': {write: 'x', R: q1}
+        'y': {write: 'y', R: q4}
+         
+      q1: 
+       'y': {write: 'y', R: q1}
+       '0': {write: '0', R: q1}
+       '1': {write: 'y', R: q2}
+         
+      q2:
+       'z': {write: 'z', R: q2}
+       '1': {write: '1', R: q2}
+       '2': {write: 'z', L: q3}
+         
+      q3:
+       '0': {write: '0', L: q3}
+       '1': {write: '1', L: q3}
+       'y': {write: 'y', L: q3}
+       'z': {write: 'z', L: q3}
+       'x': {write: 'x', R: q0}
+         
+      q4:
+       'z': {write: 'z', R: q4}
+       'y': {write: 'y', R: q4}
+       ' ': {write: ' ', R: done}
+      done:
+positions:
+  q0: {x: 164.07, y: 115.87}
+  q1: {x: 622.43, y: 117.32}
+  q2: {x: 623.49, y: 242}
+  q3: {x: 308.02, y: 247.86}
+  q4: {x: 162.55, y: 368.84}
+  done: {x: 622.73, y: 364.54}
+editor contents: |
+  input: '001122'
+  # input: '012'
+  # input: '001122'
+  # input: '000111222'
+  # input: '000011112222'
+
+  # input: '00011222'
+  # input: '000122'
+  # input: '221100'
+  # input: '1122'
+  # input: '00122'
+  # input: '00112'
+  # input: '3'
+  # input: '000111'
+  # input: '01122'
+
+  blank: ' '
+  start state: q0
+  table:
+      q0:
+        '0': {write: 'x', R: q1}
+        'y': {write: 'y', R: q4}
+         
+      q1: 
+       'y': {write: 'y', R: q1}
+       '0': {write: '0', R: q1}
+       '1': {write: 'y', R: q2}
+         
+      q2:
+       'z': {write: 'z', R: q2}
+       '1': {write: '1', R: q2}
+       '2': {write: 'z', L: q3}
+         
+      q3:
+       '0': {write: '0', L: q3}
+       '1': {write: '1', L: q3}
+       'y': {write: 'y', L: q3}
+       'z': {write: 'z', L: q3}
+       'x': {write: 'x', R: q0}
+         
+      q4:
+       'z': {write: 'z', R: q4}
+       'y': {write: 'y', R: q4}
+       ' ': {write: ' ', R: done}
+      done:

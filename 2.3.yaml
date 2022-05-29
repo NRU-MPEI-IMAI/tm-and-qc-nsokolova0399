@@ -1,0 +1,115 @@
+name: '2.3'
+source code: |
+  # input: '10101 101 100'
+  # input: '11 01 10'
+  # input: '1 101 110'
+  input: '1'
+  blank: ' '
+  start state: q0
+  table:
+    q0:
+      [1, 0]: {L}
+      ' ': {write: '#', R: q1}
+    q1:
+      [1, 0]: {R}
+      ' ': {R: q2}
+    q2:
+      [1, 0]: {R: q1}
+      ' ': {write: '*', L: q3}
+    q3:
+      [1, 0, '|', 'O', ' ']: {L}
+      '#': {R: replace}
+    replace:
+      ['|', 'O']: {R}
+      1: {write: '|', R: next}
+      0: {write: 'O', R: next}
+      ' ': {L: overwrite}
+      '*': {L: q3}
+    next:
+      [1, 0]: {R}
+      ' ': {R: replace}
+      '*': {L: q3}
+    overwrite:
+      '|': {write: 'B', L}
+      'O': {write: 'A', L}
+      ' ': {write: '&', L: delL}
+      '#': {write: '&', R: delR}
+    delL:
+      ' ': {L}
+      [1, 0, '|', 'O']: {write: ' ', L}
+      '#': {write: ' ', R: delR}
+    delR:
+      [' ', 'A', 'B', '&']: {R}
+      [1, 0, '|', 'O']: {write: ' ', R}
+      '*': {write: ' ', L: goto}
+    goto:
+      ' ': {L}
+      'A': {write: 0, L}
+      'B': {write: 1, L}
+      '&': {write: ' ', R: done}
+    done:
+
+      
+positions:
+  q0: {x: 81.08, y: 73.12}
+  q1: {x: 251.31, y: 72.3}
+  q2: {x: 470.63, y: 79.05}
+  q3: {x: 473.86, y: 207.64}
+  replace: {x: 265.19, y: 320.03}
+  next: {x: 71.7, y: 205.53}
+  overwrite: {x: 259.38, y: 429.73}
+  delL: {x: 61.09, y: 475.98}
+  delR: {x: 483.89, y: 473.11}
+  goto: {x: 484.98, y: 286.2}
+  done: {x: 383.79, y: 369.11}
+editor contents: |
+  input: '10101 101 100'
+  # input: '11 01 10'
+  # input: '1 101 110'
+  # input: '1'
+  blank: ' '
+  start state: q0
+  table:
+    q0:
+      [1, 0]: {L}
+      ' ': {write: '#', R: q1}
+    q1:
+      [1, 0]: {R}
+      ' ': {R: q2}
+    q2:
+      [1, 0]: {R: q1}
+      ' ': {write: '*', L: q3}
+    q3:
+      [1, 0, '|', 'O', ' ']: {L}
+      '#': {R: replace}
+    replace:
+      ['|', 'O']: {R}
+      1: {write: '|', R: next}
+      0: {write: 'O', R: next}
+      ' ': {L: overwrite}
+      '*': {L: q3}
+    next:
+      [1, 0]: {R}
+      ' ': {R: replace}
+      '*': {L: q3}
+    overwrite:
+      '|': {write: 'B', L}
+      'O': {write: 'A', L}
+      ' ': {write: '&', L: delL}
+      '#': {write: '&', R: delR}
+    delL:
+      ' ': {L}
+      [1, 0, '|', 'O']: {write: ' ', L}
+      '#': {write: ' ', R: delR}
+    delR:
+      [' ', 'A', 'B', '&']: {R}
+      [1, 0, '|', 'O']: {write: ' ', R}
+      '*': {write: ' ', L: goto}
+    goto:
+      ' ': {L}
+      'A': {write: 0, L}
+      'B': {write: 1, L}
+      '&': {write: ' ', R: done}
+    done:
+
+      

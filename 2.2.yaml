@@ -1,0 +1,55 @@
+name: '2.2'
+source code: |
+  input: '([{}])'
+  # input: '([([])])'
+  # input: '()[]'
+  # input: '()[]{}'
+  # input: '(()[]{})'
+
+  # input: '([(])'
+  # input: '(({[]}([])'
+  # input: '((())'
+  # input: '('
+
+  blank: ' '
+  start state: q0
+  table:
+      q0:
+      # round brackets
+       '(': {write: 'r', R: q0}
+      # square brackets
+       '[': {write: 's', R: q0}
+      # curly brackets
+       '{': {write: 'c', R: q0}
+      # round brackets
+       ')': {write: 'x', L: R1}
+      # square brackets
+       ']': {write: 'x', L: S1}
+      # curly brackets
+       '}': {write: 'x', L: C1}
+       'x': {write: 'x', R: q0}
+       ' ': {write: ' ', L: checker}
+      checker: 
+       'x': {write: ' ', L: checker}
+       ' ': {write: ' ', L: done}
+      # lina R ()
+      R1:
+       'x': {write: 'x', L: R1}
+       'r': {write: 'x', R: q0}
+      # line S []
+      S1: 
+       's': {write: 'x', R: q0}
+       'x': {write: 'x', L: S1}
+      # line C {}
+      C1:
+       'c': {write: 'x', R: q0}
+       'x': {write: 'x', L: C1}
+      done:
+      
+positions:
+  q0: {x: 325.51, y: 191.34}
+  checker: {x: 627.1, y: 198.24}
+  R1: {x: 102.23, y: 164.33}
+  S1: {x: 493.92, y: 341.08}
+  C1: {x: 207.58, y: 380.18}
+  done: {x: 626.74, y: 357.31}
